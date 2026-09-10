@@ -1,0 +1,160 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "BRSP_WARNINGS_AS_ERRORS": false
+      }
+    },
+    {
+      "name": "host-debug",
+      "displayName": "Host Debug",
+      "description": "Native debug build with tests, examples, and benchmarks",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BRSP_ARCH": "portable",
+        "BRSP_BUILD_TESTS": true,
+        "BRSP_BUILD_EXAMPLES": true,
+        "BRSP_BUILD_BENCHMARKS": true
+      }
+    },
+    {
+      "name": "host-release",
+      "displayName": "Host Release",
+      "description": "Native optimized build with tests and benchmarks",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BRSP_ARCH": "portable",
+        "BRSP_BUILD_TESTS": true,
+        "BRSP_BUILD_EXAMPLES": true,
+        "BRSP_BUILD_BENCHMARKS": true
+      }
+    },
+    {
+      "name": "host-sanitize",
+      "displayName": "Host Debug + Sanitizers",
+      "inherits": "host-debug",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "BRSP_ENABLE_SANITIZERS": true
+      }
+    },
+    {
+      "name": "cross-base",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BRSP_BUILD_TESTS": false,
+        "BRSP_BUILD_EXAMPLES": false,
+        "BRSP_BUILD_BENCHMARKS": false,
+        "BRSP_BUILD_COMPILE_CHECKS": true,
+        "BRSP_INSTALL": false
+      }
+    },
+    {
+      "name": "arm-cortex-m4-release",
+      "displayName": "Arm Cortex-M4 Release",
+      "description": "Cross-compile the library for STM32G474-class Cortex-M4F targets",
+      "inherits": "cross-base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/arm-none-eabi-gcc.cmake",
+      "cacheVariables": {
+        "BRSP_ARCH": "cortex-m4"
+      }
+    },
+    {
+      "name": "ti-c28x-release",
+      "displayName": "TI C28x Release",
+      "description": "Cross-compile the library with the TI C2000 compiler",
+      "inherits": "cross-base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/ti-c2000.cmake",
+      "cacheVariables": {
+        "BRSP_ARCH": "c28x"
+      }
+    },
+    {
+      "name": "microchip-dspic33a-release",
+      "displayName": "Microchip dsPIC33A Release",
+      "description": "Cross-compile for the dsPIC33AK512MPS506 Curiosity Nano target",
+      "inherits": "cross-base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/microchip-xc-dsc.cmake",
+      "cacheVariables": {
+        "BRSP_ARCH": "dspic33a",
+        "BRSP_DSPIC_DEVICE": "33AK512MPS506"
+      }
+    },
+    {
+      "name": "ti-f28p55x-firmware-release",
+      "displayName": "TI F28P55x flash benchmark",
+      "inherits": "ti-c28x-release",
+      "cacheVariables": {
+        "BRSP_BUILD_F28P55X_FIRMWARE": true
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "host-debug",
+      "configurePreset": "host-debug"
+    },
+    {
+      "name": "host-release",
+      "configurePreset": "host-release"
+    },
+    {
+      "name": "host-sanitize",
+      "configurePreset": "host-sanitize"
+    },
+    {
+      "name": "arm-cortex-m4-release",
+      "configurePreset": "arm-cortex-m4-release"
+    },
+    {
+      "name": "ti-c28x-release",
+      "configurePreset": "ti-c28x-release"
+    },
+    {
+      "name": "microchip-dspic33a-release",
+      "configurePreset": "microchip-dspic33a-release"
+    },
+    {
+      "name": "ti-f28p55x-firmware-release",
+      "configurePreset": "ti-f28p55x-firmware-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "host-debug",
+      "configurePreset": "host-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "host-release",
+      "configurePreset": "host-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "host-sanitize",
+      "configurePreset": "host-sanitize",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

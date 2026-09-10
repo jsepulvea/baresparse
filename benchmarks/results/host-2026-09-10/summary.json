@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "platform": "host",
+    "timer": "POSIX CLOCK_MONOTONIC low 32 bits",
+    "revision": "a939a61ced8d235308fc6afa6cbc0895c23899b7",
+    "compiler": "GNU 15.2.0",
+    "flags": " -O3 -DNDEBUG",
+    "interrupts": "host OS scheduling uncontrolled",
+    "stack_usage": "not measured",
+    "code_data_placement": "host process",
+    "timer_hz": "1000000000",
+    "char_bit": "8",
+    "real_c_bytes": "4",
+    "index_c_bytes": "4",
+    "real_alignment_c_bytes": "4",
+    "index_alignment_c_bytes": "4",
+    "n": "32",
+    "nnz_a": "136",
+    "nnz_l_strict": "199",
+    "nnz_u": "231",
+    "symbolic_c_bytes": "1980",
+    "factor_c_bytes": "1720",
+    "analysis_work_c_bytes": "256",
+    "numeric_work_c_bytes": "128",
+    "benchmark_context_c_bytes": "7984",
+    "warmup": "4",
+    "repetitions": "64",
+    "timer_overhead_ticks_min": "20",
+    "overhead_subtracted": "false",
+    "error_units": "1e-12 (rounded upward)"
+  },
+  "observed_microseconds": {
+    "factor": {
+      "min": 2.188,
+      "median": 2.197,
+      "max": 2.304
+    },
+    "solve": {
+      "min": 0.596,
+      "median": 0.598,
+      "max": 0.628
+    }
+  },
+  "max_backward_error": 1.16201e-07,
+  "max_solution_error": 3.17892e-07,
+  "memory_octets": {
+    "real": 4.0,
+    "index": 4.0,
+    "real_alignment": 4.0,
+    "index_alignment": 4.0,
+    "symbolic": 1980.0,
+    "factor": 1720.0,
+    "analysis_work": 256.0,
+    "numeric_work": 128.0,
+    "benchmark_context": 7984.0
+  },
+  "notes": [
+    "Maximum is an observation, not a WCET bound.",
+    "Allocated stack is not measured stack usage.",
+    "Host timing is not MCU performance evidence."
+  ]
+}

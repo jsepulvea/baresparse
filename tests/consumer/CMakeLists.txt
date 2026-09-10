@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.24)
+project(BareSparseConsumer LANGUAGES C)
+find_package(BareSparse 0.1 CONFIG REQUIRED)
+add_executable(brsp_consumer ../../examples/host_sparse.c)
+target_link_libraries(brsp_consumer PRIVATE BareSparse::baresparse)
+set_target_properties(brsp_consumer PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED YES)
+
+add_executable(brsp_consumer_ordered ../../examples/host_ordered.c)
+target_link_libraries(brsp_consumer_ordered PRIVATE BareSparse::baresparse)
+set_target_properties(brsp_consumer_ordered PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED YES)

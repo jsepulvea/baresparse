@@ -1,0 +1,12 @@
+/build/
+/out/
+/.cache/
+/CMakeUserPresets.json
+/compile_commands.json
+.DS_Store
+*.swp
+*.swo
+*.out
+*.map
+*.hex
+*.elf

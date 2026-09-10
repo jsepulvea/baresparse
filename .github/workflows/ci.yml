@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, compiler: gcc}
+          - {os: ubuntu-latest, compiler: clang}
+          - {os: macos-latest, compiler: clang}
+    runs-on: ${{ matrix.os }}
+    env:
+      CC: ${{ matrix.compiler }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Ninja on Ubuntu
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+      - name: Install Ninja on macOS
+        if: runner.os == 'macOS'
+        run: brew install ninja
+      - name: Record tools
+        run: |
+          "$CC" --version
+          cmake --version
+          ninja --version
+          python3 --version
+      - name: Build, test and consume installed package
+        run: ./scripts/verify-host.sh
+      - name: Check tests reject algorithm mutations
+        if: runner.os == 'Linux' && matrix.compiler == 'gcc'
+        run: python3 scripts/check-mutations.py
