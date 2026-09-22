@@ -88,6 +88,27 @@ cmake --build --preset arm-cortex-m4-release
 This produces the BareSparse static library for a Cortex-M4F configuration
 matching the STM32G474 class of target. It does not link a board firmware image.
 
+## Raspberry Pi Pico RP2040 test firmware
+
+The Pico preset compiles the focused native API suite as RP2040 firmware. It
+defaults to SDK, TinyUSB, host `picotool`, and macOS arm64 Arm GNU toolchain
+installations under the ignored local `vendor/` directory. These dependencies
+are not distributed with the repository; populate that directory locally or
+override `PICO_SDK_PATH`, `PICO_TOOLCHAIN_PATH`, and `picotool_DIR` with
+compatible installations before configuring:
+
+```sh
+cmake --preset pico-rp2040-tests-release
+cmake --build --preset pico-rp2040-tests-release
+```
+
+This produces `brsp_pico_tests.uf2` under
+`build/pico-rp2040-tests-release/platforms/raspberrypi/pico/`. The firmware
+uses USB serial for detailed results and the onboard LED for pass/fail status.
+The reference compiler is host-specific. See the [board instructions](../platforms/raspberrypi/pico/README.md)
+for dependency versions, manual flashing, and result interpretation. CMake
+never flashes hardware.
+
 ## TI C28x cross-build
 
 Install the TI C2000 code-generation tools providing `cl2000` and `ar2000`.

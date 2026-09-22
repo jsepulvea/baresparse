@@ -36,6 +36,7 @@ The reference boards considered for development and evaluation are:
 
 | Reference board | MCU | Architecture | Current validation |
 | --- | --- | --- | --- |
+| Raspberry Pi [Pico](platforms/raspberrypi/pico/README.md) | RP2040 | Arm Cortex-M0+ | Test firmware passed on hardware over USB serial |
 | TI [LAUNCHXL-F28P55X](platforms/ti/f28p55x/README.md) | F28P55x | TI C28x | Library cross-compiled; benchmark firmware linked |
 | ST [NUCLEO-G474RE](platforms/st/stm32g474/README.md) | STM32G474RE | Arm Cortex-M4F | Library cross-compiled; API consumer linked |
 | Microchip [dsPIC33A Curiosity Nano](platforms/microchip/dspic33a/README.md) | dsPIC33AK512MPS506 | dsPIC33A | Library cross-compiled; API consumer linked |

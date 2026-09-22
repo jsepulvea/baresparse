@@ -1,0 +1,1 @@
+BareSparse 0.1.0 (portable): all tests passed

@@ -1,4 +1,4 @@
-add_executable(brsp_tests test_main.c)
+add_executable(brsp_tests test_main.c basic_suite.c)
 target_link_libraries(brsp_tests PRIVATE BareSparse::baresparse)
 set_target_properties(brsp_tests PROPERTIES
     C_STANDARD 11

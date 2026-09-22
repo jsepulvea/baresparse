@@ -14,10 +14,15 @@ terms if redistributing a linked firmware image or any SDK material. Inspect
 licenses/manifests in the selected compiler and SDK distributions. Reproduction
 instructions identify the versions used; public snapshots exclude their binaries.
 
-Arm GNU Toolchain, Microchip XC-DSC and Microchip device-family packs used for
-cross-build verification are also external installations. The link-check
-consumers use vendor/toolchain startup, runtime libraries and linker scripts;
-those generated ELF files are ignored build artifacts. Their external components
-retain their respective licenses and are not relicensed under this project's
-MIT license. Download sources and distribution hashes are recorded in
+The Raspberry Pi Pico firmware build requires external copies of the Raspberry
+Pi Pico SDK, TinyUSB, `picotool`, and an Arm GNU Toolchain. They are not
+distributed by this repository or relicensed under BareSparse's MIT license.
+Anyone redistributing those dependencies or a linked firmware image is
+responsible for retaining the applicable notices and satisfying their source,
+runtime-library, and other distribution terms.
+
+Other Arm GNU Toolchain installations, Microchip XC-DSC and Microchip
+device-family packs used for cross-build verification are external. Generated
+firmware and link-check ELF files are ignored build artifacts. Reproduction
+versions and validation limits are recorded in
 [docs/VALIDATION.md](docs/VALIDATION.md).

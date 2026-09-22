@@ -102,6 +102,20 @@
       "cacheVariables": {
         "BRSP_BUILD_F28P55X_FIRMWARE": true
       }
+    },
+    {
+      "name": "pico-rp2040-tests-release",
+      "displayName": "Raspberry Pi Pico RP2040 tests",
+      "description": "Build USB test firmware for the original Raspberry Pi Pico",
+      "inherits": "cross-base",
+      "cacheVariables": {
+        "BRSP_ARCH": "portable",
+        "BRSP_BUILD_PICO_TEST_FIRMWARE": true,
+        "PICO_BOARD": "pico",
+        "PICO_SDK_PATH": "${sourceDir}/vendor/pico-sdk",
+        "PICO_TOOLCHAIN_PATH": "${sourceDir}/vendor/toolchain/expanded/Payload",
+        "picotool_DIR": "${sourceDir}/vendor/picotool"
+      }
     }
   ],
   "buildPresets": [
@@ -132,6 +146,13 @@
     {
       "name": "ti-f28p55x-firmware-release",
       "configurePreset": "ti-f28p55x-firmware-release"
+    },
+    {
+      "name": "pico-rp2040-tests-release",
+      "configurePreset": "pico-rp2040-tests-release",
+      "targets": [
+        "brsp_pico_tests"
+      ]
     }
   ],
   "testPresets": [

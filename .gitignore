@@ -3,6 +3,8 @@
 /.cache/
 /CMakeUserPresets.json
 /compile_commands.json
+/scratch/
+/vendor/
 .DS_Store
 *.swp
 *.swo

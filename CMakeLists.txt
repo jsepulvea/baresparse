@@ -1,11 +1,37 @@
 cmake_minimum_required(VERSION 3.24)
 
+set(BRSP_BUILD_PICO_TEST_FIRMWARE OFF CACHE BOOL
+    "Build Raspberry Pi Pico RP2040 test firmware")
+
+set(_brsp_project_languages C)
+if(BRSP_BUILD_PICO_TEST_FIRMWARE)
+    set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendor/pico-sdk" CACHE PATH
+        "Path to the Raspberry Pi Pico SDK")
+    set(PICO_TOOLCHAIN_PATH
+        "${CMAKE_CURRENT_SOURCE_DIR}/vendor/toolchain/expanded/Payload" CACHE PATH
+        "Path to the Arm GNU toolchain used by the Pico SDK")
+    set(picotool_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/picotool" CACHE PATH
+        "Path to the host picotool CMake package")
+    set(_brsp_pico_sdk_import "${PICO_SDK_PATH}/external/pico_sdk_import.cmake")
+    if(NOT EXISTS "${_brsp_pico_sdk_import}")
+        message(FATAL_ERROR
+            "Missing Pico SDK import file: ${_brsp_pico_sdk_import}. "
+            "Populate the ignored local vendor directory or set PICO_SDK_PATH.")
+    endif()
+    include("${_brsp_pico_sdk_import}")
+    list(APPEND _brsp_project_languages CXX ASM)
+endif()
+
 project(
     BareSparse
     VERSION 0.1.0
     DESCRIPTION "Allocation-free sparse direct linear algebra for bare-metal real-time systems"
-    LANGUAGES C
+    LANGUAGES ${_brsp_project_languages}
 )
+
+if(BRSP_BUILD_PICO_TEST_FIRMWARE)
+    pico_sdk_init()
+endif()
 
 include(CMakePackageConfigHelpers)
 
@@ -134,6 +160,10 @@ endif()
 
 if(BRSP_BUILD_F28P55X_FIRMWARE)
     add_subdirectory(platforms/ti/f28p55x)
+endif()
+
+if(BRSP_BUILD_PICO_TEST_FIRMWARE)
+    add_subdirectory(platforms/raspberrypi/pico)
 endif()
 
 if(BRSP_INSTALL)

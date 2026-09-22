@@ -1,6 +1,6 @@
 # Validation evidence and remaining gates
 
-Validation date: **2026-09-10**. This is a development candidate, not a completed
+Validation date: **2026-09-21**. This is a development candidate, not a completed
 public-release claim. Tests establish behavior for their stated matrix families,
 not general numerical robustness of fixed pivots.
 
@@ -77,6 +77,41 @@ The repository uses a single root commit on `main`, titled
 for that commit before changing visibility. Earlier development commits are
 not part of this branch's history. The repository remains private for the owner
 to publish; physical-board tasks stay in backlog.
+
+## Raspberry Pi Pico compiler and firmware evidence
+
+The `pico-rp2040-tests-release` preset cross-compiles and links the focused
+`brsp.unit` suite as firmware for the original Raspberry Pi Pico. The build
+produces ARM ELF, BIN, HEX, disassembly, map, and RP2040 UF2 outputs and uses the
+portable BareSparse backend with Cortex-M0+ flags. USB CDC output is provided by
+TinyUSB; UART stdio is disabled.
+
+The local reference dependencies used for this recorded run were Raspberry Pi
+Pico SDK **2.3.1** at
+revision `079c6f39023649b154152db30f1d781e884879bc`, TinyUSB at revision
+`86ad6e56c1700e85f1c5678607a762cfe3aa2f47`, picotool **2.3.1** at revision
+`2041936441b48a3cc53ae3da9e805229fe8f4e18`, and macOS arm64 Arm GNU Toolchain
+**15.3.Rel1** (`arm-none-eabi-gcc 15.3.1 20260627`). The original toolchain
+package SHA-256 is:
+
+```text
+5fb58dc3bd6684e70a02bd1c654a6b91f044cda241eb3ae663a7b9170491d7b2
+```
+
+The shared runner keeps native and RP2040 assertions identical: dense LU normal
+and failure behavior, CSC validation, status strings, overflow/nonfinite cases,
+and version/backend reporting. The exhaustive sparse suite remains native-only.
+
+On **2026-09-21**, an original Pico was identified in BOOTSEL mode, programmed
+with the generated UF2, and observed rebooting as Raspberry Pi USB device
+`2e8a:000a`. The shared suite then reported
+`BareSparse 0.1.0 (portable): all tests passed` over USB CDC. The image hashes,
+board identity, host configuration, and complete serial output are retained in
+the [physical test record](../platforms/raspberrypi/pico/results/2026-09-21/README.md).
+
+**Not verified:** the LED indication and a separate power-cycle run. This test
+is functional evidence for the focused suite, not a timing measurement or
+exhaustive sparse-oracle run.
 
 ## TI compiler and firmware evidence
 
